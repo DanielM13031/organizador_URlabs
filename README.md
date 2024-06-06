@@ -5,4 +5,4 @@ a repository for CompoVault project , a electronic components organizer with nfc
 ### *WORKTEAM:*
 * Daniel MORALES
 
-Applied Mathematics and Computer Science 2024
+Applied Mathematics & Computer Science 2024
