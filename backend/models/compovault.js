@@ -1,8 +1,9 @@
+// exportar la base de datos
 const {DataTypes} = require('sequelize');
-const sequelize = require('../config/database');
+const db = require('../config/database');
 
 //definir la tabla con sus atributos
-const compovault = sequelize.define('compovault', {
+const compovault = db.define('compovault', {
     n_serial:{
         type: DataTypes.INTEGER,
         primaryKey: true,
