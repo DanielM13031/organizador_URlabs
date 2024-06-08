@@ -1,9 +1,20 @@
-const {Sequelize} = require('sequelize');
+//connection with db
+const { Sequelize } = require('sequelize');
 
-const db = new Sequelize('CompoVault','postgres','13031',{
-    host: 'localhost',
-    dialect: 'postgres'
+const sequelize = new Sequelize('CompoVault', 'postgres', '13031', {
+  host: 'localhost',
+  dialect: 'postgres'
 });
 
+// ! check connection
+/*
+sequelize.authenticate()
+    .then(() => {
+        console.log('Connection has been established successfully.');
+    })
+    .catch((error) => {
+        console.error('Unable to connect to the database:', error);
+    });
+*/
 
-module.exports = db
+module.exports = sequelize;

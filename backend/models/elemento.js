@@ -1,7 +1,7 @@
-// exportar la base de datos
+// export db
 const {DataTypes} = require('sequelize');
 const db = require('../config/database');
-//definir la tabla con sus atributos
+//define the table model´s for the db 
 const elemento = db.define('elemento',{
     elemento:{
         type: DataTypes.STRING,
@@ -17,5 +17,5 @@ const elemento = db.define('elemento',{
         allowNull: false
     }
 })
-//exporatar el objeto
+//export object 
 module.exports = elemento;
