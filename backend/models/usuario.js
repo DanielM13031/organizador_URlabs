@@ -13,7 +13,11 @@ const usuario = db.define('usuario', {
     },
     serial_cv: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references:{
+            model: 'compovault',
+            key: 'n_serial'
+        }
     }
 });
 //export object 
