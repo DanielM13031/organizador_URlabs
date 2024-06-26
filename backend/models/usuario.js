@@ -1,7 +1,7 @@
 // export db
 const { DataTypes } = require('sequelize');
 const db = require('../config/database');
-//define the table model´s for the db 
+//define the table models for the db 
 const usuario = db.define('usuario', {
     nombre: {
         type: DataTypes.STRING,
