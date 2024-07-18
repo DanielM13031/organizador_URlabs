@@ -2,62 +2,63 @@ const items = [
     {id: 1, name: 'Leds', quantity: 300},
     {id: 2, name: 'Jumpers', quantity: 783},
     {id: 3, name: 'Arduinos', quantity: 125},
-
 ];
 
-const Compovault_s = [
-
-];
+const Compovault_s = [];
 
 const users = [
     {id: 1, name: 'Juan Esteban Torres', username: 'juanes.torres', password: '678910', role: 'teacher'},
     {id: 2, name: 'Daniel José Morales', username: 'daniel.morales', password: '123456', role: 'student'},
 ];
 
-const requests = [
-    
-];
+const requests = [];
+
 
 const loginUser = (req, res) => {
-    res.render('index', {
+    res.json({
         title : 'URlabs',
         text : 'Por favor, inicie sesión para continuar'
-    })
+    });
 }
 
+
 const products = (req, res, next) => {
-    res.render('products', {
+    res.json({
         title : 'URlabs',
         text : 'Lista de componentes:',
         items: items
-    })
+    });
 }
 
+
 const loan = (req, res, next) => {
-    res.render('loan', {
+    res.json({
         title : 'URlabs',
-        text : 'Lista de componentes disponibles para el prestamo:',
+        text : 'Lista de componentes disponibles para el préstamo:',
         items: items
-    })
+    });
 }
+
 
 const loginTeacher = (req, res) => {
     const user = req.session.user;
-    res.render('teacher', {
+    res.json({
         title : 'URlabs',
         text : 'Bienvenido al administrador del inventario de URlabs',
         user: user
-    })
+    });
 }
+
 
 const loginStudent = (req, res) => {
     const user = req.session.user;
-    res.render('student', {
+    res.json({
         title : 'URlabs',
-        text : 'Bienvenido al servicio de prestramo de URlabs para estudiantes',
+        text : 'Bienvenido al servicio de préstamo de URlabs para estudiantes',
         user: user
-    })
+    });
 }
+
 
 const myCompovault = (req, res) => {
     const user = req.session.user;
@@ -68,28 +69,30 @@ const myCompovault = (req, res) => {
         return res.redirect('/loan');
     }
 
-    res.render('my_compovault', {
+    res.json({
         title: 'URlabs',
         text: 'Tu Compovault:',
         compovault: compovault
     });
 }
 
+
 const seeRequest = (req, res) => {
     if (requests.length === 0) {
-        res.render('see_request', {
+        res.json({
             title: 'URlabs',
-            text: 'No se encontraron solicitudes de prestamos activos',
+            text: 'No se encontraron solicitudes de préstamos activos',
             requests: requests
         });
-    }else{
-        res.render('see_request', {
+    } else {
+        res.json({
             title: 'URlabs',
-            text: 'Solicitudes de prestamos activos:',
+            text: 'Solicitudes de préstamos activos:',
             requests: requests
         });
     }
 }
+
 
 const reviewRequest = (req, res) => {
     const requestId = parseInt(req.query.requestId);
@@ -100,12 +103,13 @@ const reviewRequest = (req, res) => {
         return res.redirect('/see_request');
     }
 
-    res.render('review_request', {
+    res.json({
         title: 'URlabs',
         text: 'Detalles de la Solicitud de Préstamo',
         request: request
     });
 }
+
 
 const newProduct = (req, res, next) => {
     const { newitem } = req.body;
@@ -113,7 +117,7 @@ const newProduct = (req, res, next) => {
     const existingItem = items.find(item => item.name.toLowerCase() === newItemLower);
     
     if (existingItem) {
-        res.render('products', {
+        res.json({
             title: 'URlabs',
             text: 'Lista de productos',
             items: items,
@@ -131,6 +135,7 @@ const newProduct = (req, res, next) => {
     res.redirect('/products');
 }
 
+
 const deleteProduct = (req, res, next) => {
     const { id } = req.body;
     const itemId = parseInt(id);
@@ -144,6 +149,7 @@ const deleteProduct = (req, res, next) => {
     res.redirect('/products');
 }
 
+
 const updateQuantity = (req, res) => {
     const { id, quantity } = req.body;
     const item = items.find(item => item.id == id);
@@ -152,7 +158,7 @@ const updateQuantity = (req, res) => {
         if (newQuantity <= 999 ) {
             item.quantity = newQuantity;
         } else {
-            res.render('products', {
+            res.json({
                 title: 'URlabs',
                 text: 'Lista de productos',
                 items: items,
@@ -163,6 +169,7 @@ const updateQuantity = (req, res) => {
     }
     res.redirect('/products');
 }
+
 
 const deleteQuantity = (req, res) => {
     const { id, quantity } = req.body;
@@ -175,6 +182,7 @@ const deleteQuantity = (req, res) => {
     }
     res.redirect('/products');
 }
+
 
 const verifyUser = (req, res) => {
     const { username, password } = req.body;
@@ -189,6 +197,7 @@ const verifyUser = (req, res) => {
         res.redirect('/');
     }
 }
+
 
 const verifyRole = (req, res) => {
     const user = req.session.user;
@@ -208,6 +217,7 @@ const verifyRole = (req, res) => {
     }
 }
 
+
 const logOut = (req, res) => {
     req.session.destroy(err => {
         if (err) {
@@ -216,6 +226,7 @@ const logOut = (req, res) => {
         res.redirect('/');
     });
 }
+
 
 const addCompovault = (req, res) => {
     const user = req.session.user;
@@ -268,6 +279,7 @@ const addCompovault = (req, res) => {
     res.redirect('/loan');
 }
 
+
 const loanRequest = (req, res) => {
     const user = req.session.user;
 
@@ -288,7 +300,7 @@ const loanRequest = (req, res) => {
         date: currentDate
     });
 
-    req.flash('success', 'Solicitud de préstamo enviada con éxito, sera informado en X días hábiles.');
+    req.flash('success', 'Solicitud de préstamo enviada con éxito, será informado en X días hábiles.');
     res.redirect('/student');
 }
 
