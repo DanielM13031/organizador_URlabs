@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const session = require('express-session');
 const flash = require('connect-flash');
-const routes = require('./routes/index.js'); 
+const routes = require('./routes/api.js'); 
 const app = express();
 
 // Configuraciones
@@ -36,7 +36,7 @@ app.use((req, res, next) => {
 });
 
 // Rutas de la API
-app.use('/api', routes);
+app.use(routes);
 
 // Servir archivos estáticos de React
 app.use(express.static(path.join(__dirname, '..', 'frontend', 'build')));
